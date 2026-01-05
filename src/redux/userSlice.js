@@ -1,13 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-//  Appel API pour se connecter
+//  Appel API pour se log
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (credentials, thunkAPI) => {
     try {
-      const response = await axios.post("http://localhost:3001/api/v1/user/login", credentials);
-      return response.data.body.token; // Le token envoyé par le backend
+      const response = await axios.post(
+        "http://localhost:3001/api/v1/user/login",
+        credentials
+      );
+      return response.data.body.token; // Le token envoyé par le back
     } catch (error) {
       console.error(error);
       return thunkAPI.rejectWithValue("Champs incorrects");
@@ -15,7 +18,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-//  Appel API pour récup les infos profil utilisateur
+//  Appel API pour récup info profil utilisateur
 export const fetchUserProfile = createAsyncThunk(
   "user/fetchUserProfile",
   async (token, thunkAPI) => {
@@ -26,11 +29,33 @@ export const fetchUserProfile = createAsyncThunk(
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("Profile fetch response:", response.data); // pour debug
+      console.log("Profile fetch response:", response.data); // debug
       return response.data.body;
     } catch (error) {
       console.error(error);
-      return thunkAPI.rejectWithValue("Impossible d'acceder au profil");
+      return thunkAPI.rejectWithValue("Impossible d'accéder au profil");
+    }
+  }
+);
+
+//  Appel API pour MAJ username
+export const updateUserName = createAsyncThunk(
+  "user/updateUserName",
+  async ({ token, userName }, thunkAPI) => {
+    try {
+      const response = await axios.put(
+        "http://localhost:3001/api/v1/user/profile",
+        { userName },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data.body;
+    } catch (error) {
+      console.error(error);
+      return thunkAPI.rejectWithValue("Erreur lors de la mise à jour du username");
     }
   }
 );
@@ -47,7 +72,7 @@ const userSlice = createSlice({
     logout(state) {
       state.token = null;
       state.profile = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -64,12 +89,18 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      // Fetch Profile
+
+      // FETCH PROFILE
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.profile = action.payload;
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.error = action.payload;
+      })
+
+      // UPDATE USERNAME
+      .addCase(updateUserName.fulfilled, (state, action) => {
+        state.profile = action.payload;
       });
   },
 });

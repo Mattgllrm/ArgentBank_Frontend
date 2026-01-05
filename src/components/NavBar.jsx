@@ -25,21 +25,28 @@ export default function NavBar() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
 
-      <div>
-        {token ? (
-          <span 
-            className="main-nav-item" 
-            onClick={handleLogout} 
-            style={{ cursor: "pointer" }}
-          >
-            <i className="fa fa-user-circle"></i>
-            {profile ? ` ${profile.firstName} (Logout)` : "Logout"}
-          </span>
-        ) : (
+      <div className="main-nav-items">
+        {!token && (
           <Link className="main-nav-item" to="/login">
             <i className="fa fa-user-circle"></i>
             Sign In
           </Link>
+        )}
+
+        {token && profile && (
+          <>
+            <Link className="main-nav-item" to="/user">
+              <i className="fa fa-user-circle"></i>
+              {profile.userName}
+            </Link>
+            <button
+              className="main-nav-item logout-button"
+              onClick={handleLogout}
+            >
+              <i className="fa fa-sign-out-alt"></i>
+              Logout
+            </button>
+          </>
         )}
       </div>
     </nav>

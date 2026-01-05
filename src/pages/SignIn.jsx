@@ -19,9 +19,8 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Vérification des champs vides
+    // Vérification champs vides
     if (!email || !password) {
-      // On utilise le state 'error' de Redux pour l'affichage
       dispatch({ type: "user/loginUser/rejected", payload: "Veuillez remplir tous les champs !" });
       return;
     }
@@ -37,7 +36,7 @@ export default function SignIn() {
         const profileAction = await dispatch(fetchUserProfile(token));
 
         if (fetchUserProfile.fulfilled.match(profileAction)) {
-          navigate("/user"); // Redirection seulement si fetch réussi
+          navigate("/user"); // seulement si fetch réussi
         } else {
           console.error("Impossible de récupérer le profil");
         }

@@ -1,6 +1,6 @@
 import React from "react";
 import Feature from "../components/Feature";
-import heroImage from "../assets/home/bank-tree.jpeg";
+import heroImage from "../assets/home/bank-treee.webp";
 import chatIcon from "../assets/icons/icon-chat.png";
 import moneyIcon from "../assets/icons/icon-money.png";
 import securityIcon from "../assets/icons/icon-security.png";

@@ -22,6 +22,71 @@ body {
   padding: 105px;                                        /*padding**/
 }
 
+.logout-button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  font-weight: bold;
+}
+
+
+.edit-name-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  margin: 0 auto; 
+  max-width: 400px; 
+  padding: 20px;
+}
+
+/* Chaque barre d'input */
+.edit-name-form .input-wrapper {
+  width: 100%; 
+  margin-bottom: 15px; 
+}
+
+
+.edit-name-form input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: black;
+}
+
+
+.edit-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.edit-buttons .save-button,
+.edit-buttons .cancel-button {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+}
+
+.edit-buttons .save-button {
+  background-color: #00bc77;
+  color: white;
+}
+
+.edit-buttons .cancel-button {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+
 .sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
